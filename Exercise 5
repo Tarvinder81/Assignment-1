@@ -1,0 +1,71 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Main {
+    private Queue<String> friendQueue;
+    private int[] datesCount;
+    private int[] datesScheduled;
+
+    public Main() {
+        friendQueue = new LinkedList<>();
+    }
+
+    public void addFriend(String friend) {
+        friendQueue.add(friend);
+    }
+
+    public void generateSchedule() {
+        int numFriends = friendQueue.size();
+        int numDatesPerFriend = 2;
+
+        datesCount = new int[numFriends];
+        datesScheduled = new int[numFriends];
+
+        int totalDates = numFriends * numDatesPerFriend;
+        int day = 1;
+
+        while (totalDates > 0) {
+            System.out.println("Day " + day + " Schedule:");
+
+            int index = 0;
+            while (index < numFriends) {
+                String currentFriend = friendQueue.peek();
+                if (datesScheduled[index] < numDatesPerFriend) {
+                    System.out.println(currentFriend + " is going on a date.");
+                    datesScheduled[index]++;
+                    datesCount[index]++;
+                    totalDates--;
+                } else {
+                    friendQueue.add(currentFriend);
+                    friendQueue.poll();
+                }
+                index++;
+            }
+
+            day++;
+        }
+    }
+
+    public void printDatesCount() {
+        int index = 0;
+        for (String friend : friendQueue) {
+            System.out.println(friend + " had " + datesCount[index] + " dates.");
+            index++;
+        }
+    }
+
+    public static void main(String[] args) {
+        Main main = new Main();
+
+        main.addFriend("John");
+        main.addFriend("Emma");
+        main.addFriend("Michael");
+        main.addFriend("Sophia");
+        main.addFriend("William");
+
+        main.generateSchedule();
+
+        System.out.println("\nFinal Dates Count:");
+        main.printDatesCount();
+    }
+}
