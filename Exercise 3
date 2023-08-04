@@ -1,0 +1,67 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+class Runner {
+    String name;
+    int age;
+    int distancePerDay;
+
+    public Runner(String name, int age, int distancePerDay) {
+        this.name = name;
+        this.age = age;
+        this.distancePerDay = distancePerDay;
+    }
+}
+
+class RunnerQueue {
+    private Queue<Runner> queue;
+
+    public RunnerQueue() {
+        queue = new LinkedList<>();
+    }
+
+    public void addRunner(Runner runner) {
+        queue.add(runner);
+    }
+
+    public Runner dequeueRunner() {
+        return queue.poll();
+    }
+
+    public boolean isQueueEmpty() {
+        return queue.isEmpty();
+    }
+
+    public int getQueueSize() {
+        return queue.size();
+    }
+
+    public Runner peekRunner() {
+        return queue.peek();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        RunnerQueue runnerQueue = new RunnerQueue();
+
+        for (int i = 1; i <= 10; i++) {
+            Runner runner = new Runner("Runner " + i, 20 + i, 5 + i);
+            runnerQueue.addRunner(runner);
+        }
+
+        Queue<Runner> tempQueue = new LinkedList<>();
+        while (!runnerQueue.isQueueEmpty()) {
+            Runner runner = runnerQueue.dequeueRunner();
+            System.out.println("Name: " + runner.name);
+            System.out.println("Age: " + runner.age);
+            System.out.println("Running Distance Per Day: " + runner.distancePerDay);
+            System.out.println("----------------------");
+            tempQueue.add(runner);
+        }
+
+        while (!tempQueue.isEmpty()) {
+            runnerQueue.addRunner(tempQueue.poll());
+        }
+    }
+}
