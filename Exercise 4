@@ -1,0 +1,60 @@
+import java.util.LinkedList;
+
+class HighAchiever {
+    String studentName;
+    float achievementScore;
+
+    public HighAchiever(String studentName, float achievementScore) {
+        this.studentName = studentName;
+        this.achievementScore = achievementScore;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public float getAchievementScore() {
+        return achievementScore;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        LinkedList<HighAchiever> highAchieversList = new LinkedList<>();
+
+        HighAchiever student1 = new HighAchiever("Willy", 80.5f);
+        HighAchiever student2 = new HighAchiever("Ford", 90.2f);
+        HighAchiever student3 = new HighAchiever("Dior", 75.8f);
+
+        highAchieversList.add(student1);
+        highAchieversList.add(student2);
+        highAchieversList.add(student3);
+
+        float scoreThreshold = 80.0f;
+        LinkedList<HighAchiever> highAchieversAboveThreshold = getHighAchievers(highAchieversList, scoreThreshold);
+
+        System.out.println("High achievers with scores above " + scoreThreshold + ":");
+        printHighAchievers(highAchieversAboveThreshold);
+
+        System.out.println("\nAll high achievers:");
+        printHighAchievers(highAchieversList);
+    }
+
+    public static LinkedList<HighAchiever> getHighAchievers(LinkedList<HighAchiever> highAchieversList, float scoreThreshold) {
+        LinkedList<HighAchiever> highAchieversAboveThreshold = new LinkedList<>();
+
+        for (HighAchiever highAchiever : highAchieversList) {
+            if (highAchiever.getAchievementScore() > scoreThreshold) {
+                highAchieversAboveThreshold.add(highAchiever);
+            }
+        }
+
+        return highAchieversAboveThreshold;
+    }
+
+    public static void printHighAchievers(LinkedList<HighAchiever> highAchieversList) {
+        for (HighAchiever highAchiever : highAchieversList) {
+            System.out.println("Student Name: " + highAchiever.getStudentName() + ", Achievement Score: " + highAchiever.getAchievementScore());
+        }
+    }
+}
